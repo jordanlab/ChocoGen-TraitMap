@@ -42,6 +42,7 @@ function studySearch(name) {
 		success: function(response) {
 			info_data = response['data']
 			console.log(info_data)
+			console.log(q_url+encodeURIComponent)
 			var info_parent = document.getElementById('detailed-info');
 			$('#table-info tbody').find('tr').remove();
 			$(info_data).each(function() {

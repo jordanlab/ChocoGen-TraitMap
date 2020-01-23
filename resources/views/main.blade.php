@@ -26,7 +26,7 @@
 	<div class="container">
 		<div>
 			<center>
-				<title>Choco3 Website Testing</title>
+				<title>ChocoGen TraitMap</title>
 
 				<h1>Colombian Genotype-Phenotype Browser</h1>
 				<h5>
@@ -177,6 +177,8 @@
 								  .attr("transform", "translate(25,"+ 0 +")")
 								  .attr("class", "y-axis")
 								  .call(d3.axisLeft(y_axis))
+
+								svgBox.selectAll(".x-axis .tick").remove();
 							</script>
 						</div>
 					</div>

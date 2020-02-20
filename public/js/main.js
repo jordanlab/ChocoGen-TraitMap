@@ -66,7 +66,7 @@ function studySearch(name) {
 						)
 						.append($('<td>')
 							.append($('<a>')
-								.attr('href', this.link)
+								.attr('href', 'https://'+this.link)
 								.attr('target', '_blank')
 								.text(this.pubmed_id)
 							)
@@ -97,8 +97,9 @@ function rsidSearch(obj) { // NEED TO RE-WRITE THIS FUNCTION TO INCREASE MODULAR
 			// Clear previous select options on user selecting a rsID
 			// console.log('getRsid success')
 			console.log(response)
+			// $('#rsid-select').prop('disabled', true); // NOT WORKING
+			// $('#trait-select').prop('disabled', false);
 			$('#trait-select').find('option').remove();
-			$('#trait-select').formSelect();
 			var traits = response['data'];
 			// Draw a pie chart using the first trait
 			displayPie(traits[0]);
@@ -110,9 +111,9 @@ function rsidSearch(obj) { // NEED TO RE-WRITE THIS FUNCTION TO INCREASE MODULAR
 				var j_data = JSON.stringify(this);
 				// console.log(j_data);
 				$('#trait-select').append($('<option>').attr({"data-value":j_data, "trait": this.trait, "rsid": this.rsid}).text(this.trait));
-				$('#trait-select').formSelect();
-
+				// $('#trait-select').formSelect();
 			});
+			$('#trait-select').formSelect();
 		}
 	}); 
 }
@@ -129,9 +130,9 @@ function traitSearch(obj) { // NEED TO RE-WRITE THIS FUNCTION TO INCREASE MODULA
 		success: function(response) {
 			// Clear previous select options on user selecting a rsID
 			// console.log('getRsid success')
-			console.log(response)
+			// $('#rsid-select').prop('disabled', false);
+			// $('#trait-select').prop('disabled', true);
 			$('#rsid-select').find('option').remove();
-			$('#rsid-select').formSelect();
 			var rsids = response['data'];
 			// Draw a pie chart using the first trait
 			displayPie(rsids[0]);
@@ -143,8 +144,8 @@ function traitSearch(obj) { // NEED TO RE-WRITE THIS FUNCTION TO INCREASE MODULA
 				var j_data = JSON.stringify(this);
 				// console.log(j_data);
 				$('#rsid-select').append($('<option>').attr({"data-value":j_data, "trait": this.trait, "rsid": this.rsid}).text(this.rsid));
-				$('#rsid-select').formSelect();
 			});
+			$('#rsid-select').formSelect();
 		}
 	}); 
 }
@@ -169,15 +170,14 @@ function traitScores(name) {
 
 // Change boxplot by filling in below
 function changeTrait(){
-	// document.getElementById('search_toggle').checked = true;
 	var trait_select = document.getElementById("trait-select");
 	var trait_selected = trait_select.options[trait_select.selectedIndex].value;
+	$(document).ready(function(){
 	traitSearch(trait_selected); // Returns data attribute from the selected option
 }
 
 // Change pie chart by filling in below
 function changeVariant(){
-	// document.getElementById('search_toggle').checked = false;
 	var rsid_select = document.getElementById("rsid-select");
 	var rsid_selected = rsid_select.options[rsid_select.selectedIndex].value;
 	rsidSearch(rsid_selected); // Returns data attribute from the selected option
@@ -210,7 +210,6 @@ $(document).ready(function() {
 
 	$('.trait_typeahead').bind('typeahead:select', function(event, input) {
 		// Search the selected rsID in the database to create plots
-		// console.log('searching by trait with typeahead')
 		traitSearch(input.trait);
 	});
 });
@@ -241,8 +240,6 @@ $(document).ready(function() {
 
 	$('.rsid_typeahead').bind('typeahead:select', function(event, input) {
 		// Search the selected rsID in the database to create plots
-		// console.log('searching by rsid with typeahead')
-		// console.log(input.rsid)
 		rsidSearch(input.rsid);
 	});
 });
@@ -250,8 +247,11 @@ $(document).ready(function() {
 // Populate rsID example data
 $(document).ready(function(){
 	$('#rsid-example').click(function(){
+		$('#trait-select').prop('disabled', false);
+		$('#rsid-select').prop('disabled', true);
 		$('#rsid-select').find('option').remove();
 		$('#trait-select').find('option').remove();
+		$('#rsid-select').append($('<option>').text('Select rsID'));
 		$('#rsid-select').formSelect();
 		$('#trait-select').formSelect();
 		$('#rsid_search').val('rs10182181');
@@ -262,8 +262,11 @@ $(document).ready(function(){
 // Populate trait example data
 $(document).ready(function(){
 	$('#trait-example').click(function(){
+		$('#rsid-select').prop('disabled', false);
+		$('#trait-select').prop('disabled', true);
 		$('#rsid-select').find('option').remove();
 		$('#trait-select').find('option').remove();
+		$('#trait-select').append($('<option>').text('Select trait'));
 		$('#rsid-select').formSelect();
 		$('#trait-select').formSelect();
 		$('#trait_search').val('Obesity');

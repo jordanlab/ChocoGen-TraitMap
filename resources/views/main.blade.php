@@ -60,12 +60,12 @@
 				<div class="row">
 					<div class="col s3"></div>
 					<div class="col s3">
-						<select id="rsid-select" onchange="changeVariant()">
+						<select id="rsid-select" disabled onchange="changeVariant()">
 							<option value="" disabled selected>Select rsID</option>
 						</select>
 					</div>
 					<div class="col s3">
-						<select id="trait-select" onchange="changeTrait()">
+						<select id="trait-select" disabled onchange="changeTrait()">
 							<option value="" disabled selected>Select trait</option>
 						</select>
 					</div>
@@ -80,19 +80,8 @@
 						<center><button id="trait-example" class="btn">Trait Name Example</button></center>
 					</div>
 					<div class="col s3"></div>
-<!-- 					<center>
-						<div>
-							<button id="rsid-example" class="btn">Variant ID Example</button>
-							<button id="trait-example" class="btn">Trait Name Example</button>
-						</div>
-					</center> -->
 				</div>
 				<div class="col s6">
-<!-- 						<div class="input-field">
-							<select id="rsid-select">
-								<option value="" disabled selected>Select a trait</option>
-							</select>
-						</div> -->
 					<div id="pie-chart"> 
 						<script>
 							// Script to draw the map of Colombia

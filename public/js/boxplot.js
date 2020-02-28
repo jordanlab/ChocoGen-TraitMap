@@ -75,7 +75,7 @@ function displayBoxPlot(cho_scores, clm_scores) {
       .data(points_data)
       .enter()
       .append("circle")
-      .attr("cx", function(d){return(x_axis(d.prov) - jitter/2 + jitter)})
+      .attr("cx", function(d){return(x_axis(d.prov) - jitter/2 + Math.random()*jitter)})
       .attr("cy", function(d){return(y_axis(d.prs))})
       .attr("r", 10)
       .style("fill", function(d) {

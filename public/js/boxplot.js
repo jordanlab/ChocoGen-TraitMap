@@ -123,12 +123,9 @@ function displayBoxPlot(cho_scores, clm_scores) {
       .attr("class", "tip-score")
       .attr("width", 225)
       .attr("height", 125)
-      .attr("x", function(d,i){
-        if (d.key == "CHO") {
-          return 165
-        } else {
-          return 475
-        }
+      .attr("x", function(d){
+        console.log(x_axis(d.key));
+        return(x_axis(d.key));
       })
       .attr("y", -135)
       .attr("rx", 15)
@@ -141,13 +138,7 @@ function displayBoxPlot(cho_scores, clm_scores) {
       .data(input)
       .enter()
       .append("text")
-      .attr("x", function(d,i){
-        if (d.key == "CHO") {
-          return 275
-        } else {
-          return 585
-        }
-      })
+      .attr("x", function(d){return(x_axis(d.key) + 110)})
       .attr("y", -85)
       .style("font-size", "33px")
       .text(function(d) {
@@ -165,13 +156,7 @@ function displayBoxPlot(cho_scores, clm_scores) {
       .data(input)
       .enter()
       .append("text")
-      .attr("x", function(d,i){
-        if (d.key == "CHO") {
-          return 275
-        } else {
-          return 585
-        }
-      })
+      .attr("x", function(d){return(x_axis(d.key) + 110)})
       .attr("y", -33)
       .style("font-size", "33px")
       .text(function(d) {return "PRS = " + d.value.median.toFixed(1)})

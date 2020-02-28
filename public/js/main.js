@@ -41,8 +41,8 @@ function studySearch(name) {
 		dataType: 'json',
 		success: function(response) {
 			info_data = response['data']
-			console.log(info_data)
-			console.log(q_url+encodeURIComponent)
+			//console.log(info_data)
+			//console.log(q_url+encodeURIComponent)
 			var info_parent = document.getElementById('detailed-info');
 			$('#table-info tbody').find('tr').remove();
 			$(info_data).each(function() {
@@ -96,7 +96,7 @@ function rsidSearch(obj) { // NEED TO RE-WRITE THIS FUNCTION TO INCREASE MODULAR
 		success: function(response) {
 			// Clear previous select options on user selecting a rsID
 			// console.log('getRsid success')
-			console.log(response)
+			//console.log(response)
 			// $('#rsid-select').prop('disabled', true); // NOT WORKING
 			// $('#trait-select').prop('disabled', false);
 			$('#trait-select').find('option').remove();
@@ -107,12 +107,18 @@ function rsidSearch(obj) { // NEED TO RE-WRITE THIS FUNCTION TO INCREASE MODULAR
 			traitScores(traits[0].trait);
 			studySearch(traits[0].rsid);
 			// Populate select options for a selected rsID
+			console.log(traits)
 			$(traits).each(function() {
 				var j_data = JSON.stringify(this);
 				// console.log(j_data);
 				$('#trait-select').append($('<option>').attr({"data-value":j_data, "trait": this.trait, "rsid": this.rsid}).text(this.trait));
 				// $('#trait-select').formSelect();
 			});
+			$('#rsid_search').val(traits[0]['rsid']);
+			$('#trait_search').val(traits[0]['trait']);
+			$('#trait-select').prop('disabled', false);
+			$('#rsid-select').prop('disabled', true);
+			$('#rsid-select').formSelect();
 			$('#trait-select').formSelect();
 		}
 	}); 
@@ -140,12 +146,18 @@ function traitSearch(obj) { // NEED TO RE-WRITE THIS FUNCTION TO INCREASE MODULA
 			traitScores(rsids[0].trait);
 			studySearch(rsids[0].trait);
 			// Populate select options for a selected rsID
+			console.log(rsids)
 			$(rsids).each(function() {
 				var j_data = JSON.stringify(this);
 				// console.log(j_data);
 				$('#rsid-select').append($('<option>').attr({"data-value":j_data, "trait": this.trait, "rsid": this.rsid}).text(this.rsid));
 			});
+			$('#rsid_search').val(rsids[0]['rsid']);
+			$('#trait_search').val(rsids[0]['trait']);
+			$('#trait-select').prop('disabled', true);
+			$('#rsid-select').prop('disabled', false);
 			$('#rsid-select').formSelect();
+			$('#trait-select').formSelect();
 		}
 	}); 
 }
@@ -172,7 +184,6 @@ function traitScores(name) {
 function changeTrait(){
 	var trait_select = document.getElementById("trait-select");
 	var trait_selected = trait_select.options[trait_select.selectedIndex].value;
-	$(document).ready(function(){
 	traitSearch(trait_selected); // Returns data attribute from the selected option
 }
 
@@ -203,7 +214,7 @@ $(document).ready(function() {
 		name: 'traits',
 		source: bloodhound,
 		display: function(data) {
-			console.log(data.trait);
+			//console.log(data.trait);
 			return data.trait;
 		}
 	});

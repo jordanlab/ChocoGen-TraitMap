@@ -25,7 +25,7 @@ function displayBoxPlot(cho_scores, clm_scores) {
   // .domain([0,100])
   // .range([height+100, 0])
 
-  console.log("in displayBoxPlot")
+  console.log("In displayBoxPlot")
   var cho_stats = getQuantiles(cho_scores, 'CHO')
   var clm_stats = getQuantiles(clm_scores, 'CLM')
 
@@ -36,7 +36,7 @@ function displayBoxPlot(cho_scores, clm_scores) {
   var max_y =d3.max([input[0].value['max'], input[1].value['max']])+5
   y_axis = d3.scaleLinear()
     .domain([min_y,max_y])
-    .range([height, 0])
+    .range([height-250, 0])
   svgBox.selectAll(".y-axis").call(d3.axisLeft(y_axis))
 
   svgBox.selectAll("vertLines")
@@ -75,7 +75,7 @@ function displayBoxPlot(cho_scores, clm_scores) {
       .data(points_data)
       .enter()
       .append("circle")
-      .attr("cx", function(d){return(x_axis(d.prov) - jitter/2 + Math.random()*jitter)})
+      .attr("cx", function(d){return(x_axis(d.prov) - jitter/2 + jitter)})
       .attr("cy", function(d){return(y_axis(d.prs))})
       .attr("r", 10)
       .style("fill", function(d) {
@@ -130,7 +130,7 @@ function displayBoxPlot(cho_scores, clm_scores) {
           return 475
         }
       })
-      .attr("y", -175)
+      .attr("y", -135)
       .attr("rx", 15)
       .attr("ry", 15)
       .style("fill", function(d,i) {
@@ -148,7 +148,7 @@ function displayBoxPlot(cho_scores, clm_scores) {
           return 585
         }
       })
-      .attr("y", -125)
+      .attr("y", -85)
       .style("font-size", "33px")
       .text(function(d) {
         if (d.key == "CHO") {
@@ -172,7 +172,7 @@ function displayBoxPlot(cho_scores, clm_scores) {
           return 585
         }
       })
-      .attr("y", -75)
+      .attr("y", -33)
       .style("font-size", "33px")
       .text(function(d) {return "PRS = " + d.value.median.toFixed(1)})
       .style("text-anchor", "middle")

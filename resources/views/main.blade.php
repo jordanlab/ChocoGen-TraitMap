@@ -94,11 +94,11 @@
 								.append("svg")
 								.attr("preserveAspectRatio", "xMinYMin meet")
 								// .attr("viewBox", "0 -100 900 700")
-								.attr("viewBox", "-50 -160 900 1200")
+								.attr("viewBox", "-50 -160 900 900")
 
 							var projection = d3.geoMercator()
-								.scale(2500)
-								.center([-70,7])
+								.scale(3200)
+								.center([-67.5,7])
 								.translate([width/1.2, height/5]);
 
 							var path = d3.geoPath().projection(projection);
@@ -135,7 +135,7 @@
 						<div id='box-plot'>
 							<script type="text/javascript">
 								// set the dimensions and margins of the graph
-								var width = 900, height = 800
+								var width = 900, height = 900
 
 								// append the svg object to the body of the page
 								var svgBox = d3.select("#box-plot")
@@ -144,7 +144,7 @@
 								  .append("svg")
 								  .attr("id", "svgBox")
 								  .attr("preserveAspectRatio", "xMinYMin meet")
-								  .attr("viewBox", "-50 -160 900 1200")
+								  .attr("viewBox", "-50 -160 900 900")
 
 								var x_axis = d3.scaleBand()
 								  .range([0, width])
@@ -153,14 +153,14 @@
 								  .paddingOuter(.5)
 
 								svgBox.append("g")
-								  .attr("transform", "translate(25,"+ (height+130) +")")
+								  .attr("transform", "translate(25,"+ height +")")
 								  .attr("class", "x-axis")
 								  // .attr("stroke", "white")
 								  .call(d3.axisBottom(x_axis))
 
 								var y_axis = d3.scaleLinear()
 								  .domain([0,100])
-								  .range([height+100, 0])
+								  .range([height-250, 0])
 
 								svgBox.append("g")
 								  .attr("transform", "translate(25,"+ 0 +")")

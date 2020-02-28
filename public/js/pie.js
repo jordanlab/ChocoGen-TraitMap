@@ -49,7 +49,7 @@ function displayPie(d) {
 				// Position the pie chart according to province coordinates
 				.attr("transform", function(e) {
 					if (e.prov == "Antioquia") {
-						return "translate("+projection([parseInt(e.lon,10)-2.5,parseInt(e.lat,10)+4.5])+")";
+						return "translate("+projection([parseInt(e.lon,10)+2,parseInt(e.lat,10)+3.35])+")";
 					} else {
 						return "translate("+projection([parseInt(e.lon,10)-2.75,parseInt(e.lat,10)-0.5])+")";
 					}
@@ -58,28 +58,27 @@ function displayPie(d) {
 
 			pts.append("rect")
 				.attr("class", "tip-rect")
-				.attr("width", 150)
-				.attr("height", 77)
-				.attr("x", -75)
-				.attr("y", radius*-2.5)
+				.attr("width", 225)
+				.attr("height", 125)
+				.attr("x", -115)
+				.attr("y", radius*-3.5)
 				.attr("rx", 15)
 				.attr("ry", 15)
 				.style("fill",  function(e,i) {
 					return prov_color[i];
 				})
 
-			pts.append("polygon")
-				.attr("points", "0, 0, 0,-50, 50,-50")
-				.attr("transform", "translate(10,-60)")
-				.style("fill",  function(e,i) {
-					return prov_color[i];
-				})
+			// pts.append("polygon") // Triangle for chat-bubble type of look
+			// 	.attr("points", "0, 0, 0,-50, 50,-50")
+			// 	.attr("transform", "translate(5,-60)")
+			// 	.style("fill",  function(e,i) {
+			// 		return prov_color[i];
+			// 	})
 
 			pts.append("text")
 				.attr("class", "tip-title")
-				// .attr("x", -35)
-				.attr("y", radius*-2)
-				.style("font-size", "20px")
+				.attr("y", -radius-100)
+				.style("font-size", "33px")
 				.text(function(e) {return e.prov})
 				.style("text-anchor", "middle")
 				.style("fill", "white")
@@ -87,12 +86,12 @@ function displayPie(d) {
 
 			pts.append("text")
 				.attr("class", "tip-content")
-				.attr("y", radius*-1.5)
+				.attr("y", -radius-45)
 				.text(function(e) {
-					return "MAF: "+(parseInt(e.data[1])/(parseInt(e.data[0])+parseInt(e.data[1]))).toFixed(2)
+					return "f(EA): "+(parseInt(e.data[1])/(parseInt(e.data[0])+parseInt(e.data[1]))).toFixed(2)
 				})
 				.style("fill", "white")
-				.style("font-size", "20px")
+				.style("font-size", "33px")
 				.style("text-anchor", "middle")
 
 			// Display description

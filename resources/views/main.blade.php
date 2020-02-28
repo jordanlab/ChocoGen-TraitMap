@@ -60,12 +60,12 @@
 				<div class="row">
 					<div class="col s3"></div>
 					<div class="col s3">
-						<select id="rsid-select" disabled onchange="changeVariant()">
+						<select id="rsid-select" onchange="changeVariant()">
 							<option value="" disabled selected>Select rsID</option>
 						</select>
 					</div>
 					<div class="col s3">
-						<select id="trait-select" disabled onchange="changeTrait()">
+						<select id="trait-select" onchange="changeTrait()">
 							<option value="" disabled selected>Select trait</option>
 						</select>
 					</div>
@@ -98,7 +98,7 @@
 
 							var projection = d3.geoMercator()
 								.scale(3200)
-								.center([-67.5,7])
+								.center([-69.5,9])
 								.translate([width/1.2, height/5]);
 
 							var path = d3.geoPath().projection(projection);

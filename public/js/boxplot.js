@@ -11,7 +11,6 @@ function getQuantiles(array, province) {
   for (var a of sorted) {
     points.push({prs:a*100, prov:province})
   }
-  // console.log({q1:q1, median:median, q3:q3, iqr:iqr, min:min, max:max})
   return {q1:q1, median:median, q3:q3, iqr:iqr, min:min, max:max, points:points}
 }
 
@@ -24,8 +23,7 @@ function displayBoxPlot(cho_scores, clm_scores) {
   // var y_axis = d3.scaleLinear()
   // .domain([0,100])
   // .range([height+100, 0])
-
-  console.log("In displayBoxPlot")
+  
   var cho_stats = getQuantiles(cho_scores, 'CHO')
   var clm_stats = getQuantiles(clm_scores, 'CLM')
 
@@ -124,7 +122,6 @@ function displayBoxPlot(cho_scores, clm_scores) {
       .attr("width", 225)
       .attr("height", 125)
       .attr("x", function(d){
-        console.log(x_axis(d.key));
         return(x_axis(d.key));
       })
       .attr("y", -135)

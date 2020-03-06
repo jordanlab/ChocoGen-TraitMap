@@ -217,11 +217,12 @@ $(document).ready(function() {
 		remote: {
 			url: '/traitAutocomplete/?q=%QUERY%',
 			wildcard: 'QUERY%'
-		}
+		},
+		prefect: '/traitAutocomplete'
 	});
 	// console.log(bloodhound);
 	$('#trait_search').typeahead({
-		limit: 5,
+		limit: 15,
 		hint: true,
 		highlight: true
 	},{

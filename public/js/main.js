@@ -177,6 +177,7 @@ function traitSearch(obj) { // NEED TO RE-WRITE THIS FUNCTION TO INCREASE MODULA
 }
 
 function traitScores(name) {
+	console.log(name)
 	$.ajax({
 		url: '/getTraitScores/'+encodeURIComponent(name),
 		type: 'get',
@@ -217,7 +218,8 @@ $(document).ready(function() {
 		remote: {
 			url: '/traitAutocomplete/?q=%QUERY%',
 			wildcard: 'QUERY%'
-		}
+		},
+		prefect: '/traitAutocomplete'
 	});
 	// console.log(bloodhound);
 	$('#trait_search').typeahead({

@@ -26,7 +26,6 @@ function displayPie(d) {
 	var prov_color = ["#6ABD45","#8251A1"]
 
 	var locData = [{"prov" : "Antioquia", "lon" : "-75.5", "lat" : "6.7"}, {"prov" : "Chocó", "lon" : "-77", "lat" : "6"}]
-	console.log(locData)
 
 	if (typeof input != "undefined") {
 		for (var entry in locData) {
@@ -40,7 +39,6 @@ function displayPie(d) {
 			locData[entry]["data"] = value;
 			delete input[key];
 		}
-		console.log(locData)
 		var pts = gPie.selectAll("g")
 			.data(locData)
 			.enter()

@@ -177,7 +177,6 @@ function traitSearch(obj) { // NEED TO RE-WRITE THIS FUNCTION TO INCREASE MODULA
 }
 
 function traitScores(name) {
-	console.log(name)
 	$.ajax({
 		url: '/getTraitScores/'+encodeURIComponent(name),
 		type: 'get',
@@ -223,7 +222,7 @@ $(document).ready(function() {
 	});
 	// console.log(bloodhound);
 	$('#trait_search').typeahead({
-		limit: 5,
+		limit: 15,
 		hint: true,
 		highlight: true
 	},{

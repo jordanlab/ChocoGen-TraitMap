@@ -29,11 +29,8 @@ function displayPie(d) {
 
 	if (typeof input != "undefined") {
 		for (var entry in locData) {
-			// console.log(input)
 			var key = Object.keys(input)[0];
-			// console.log(entry)
 			var value = input[Object.keys(input)[0]];
-
 			// Append pie chart data to CSV data and
 			// remove additional pie chart data after it is added to CSV data
 			locData[entry]["data"] = value;
@@ -91,20 +88,6 @@ function displayPie(d) {
 			.style("font-size", "33px")
 			.style("text-anchor", "middle")
 
-		// Display description
-		// pts.append("text")
-		// 	.attr("class", function(e) {
-		// 		if (e.prov == "Antioquia") {
-		// 			return "talk-bubble";
-		// 		} else {
-		// 			return "talk-bubble";
-		// 		}
-		// 	})
-		// 	.attr("x", 1)
-		// 	.attr("y", radius*-1.5)
-		// 	.text(function(e) {return e.prov})
-		// 	.style("text-anchor", "middle");
-
 		var pies = pts.selectAll(".pies")
 			.data(function(e) { return pie(e.data); })
 			.enter()
@@ -119,30 +102,4 @@ function displayPie(d) {
 				return color[i];
 			})
 	}
-	// });
 }
-
-// $("#rsid").on('awesomplete-selectcomplete',function(){
-
-// 	// Remove existing pie charts once rsID is updated
-// 	d3.selectAll("g.pies").remove();
-
-// 	selectedId = this.value;
-// 	d = genData[selectedId];
-	
-// 	choRefNum = 2 * d['choREF'] + d['choHET'];
-// 	choAltNum = 2 * d['choALT'] + d['choHET'];
-// 	antRefNum = 2 * d['clmREF'] + d['clmHET'];
-// 	antAltNum = 2 * d['clmALT'] + d['clmHET'];
-
-// 	// Make sure data being sent is alphabetically organized to be consistent with
-// 	// province CSV data. Refer below for compatible input:
-// 	// e.g. input = {antio:[20,30], choco:[30,20]};
-
-// 	var pieData = {antio:[antRefNum, antAltNum], choco:[choRefNum, choAltNum]};
-// 	displayPie(pieData);
-// });
-// displayPie()
-
-
-// redraw()

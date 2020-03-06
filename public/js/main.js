@@ -35,12 +35,9 @@ function studySearch(name) {
 		dataType: 'json',
 		success: function(response) {
 			info_data = response['data']
-			//console.log(info_data)
-			//console.log(q_url+encodeURIComponent)
 			var info_parent = document.getElementById('detailed-info');
 			$('#table-info tbody').find('tr').remove();
 			$(info_data).each(function() {
-				// console.log(JSON.stringify(this))
 				info = JSON.stringify(this);
 				snp_url = 'https://www.ncbi.nlm.nih.gov/snp/'+this.rsid;
 				$('#table-info').find('tbody')
@@ -110,15 +107,12 @@ function rsidSearch(obj) { // NEED TO RE-WRITE THIS FUNCTION TO INCREASE MODULAR
 
 			// Change boxplots if a search being done is the first search OR a trait exists for the rsID being searched
 			if (!trait_list.includes(prev_trait) || prev_trait === '') {
-				console.log('Should change', prev_trait)
 				traitScores(curr_trait);
 				prev_trait = curr_trait;
 				$('#trait_search').val(curr_trait);
-			} else {
-				console.log('Should not change', prev_trait)
 			}
-			$('#rsid_search').val(traits[0]['rsid']);
 
+			$('#rsid_search').val(traits[0]['rsid']);
 			// $('#trait-select').prop('disabled', false);
 			// $('#rsid-select').prop('disabled', true);
 			$('#rsid-select').formSelect();
@@ -148,11 +142,16 @@ function traitSearch(obj) { // NEED TO RE-WRITE THIS FUNCTION TO INCREASE MODULA
 			let curr_rsid = rsids[0].rsid;
 			studySearch(curr_trait);
 			if (prev_trait != curr_trait) {
+				console.log('winning!')
 				traitScores(rsids[0].trait);
 				prev_trait = curr_trait;
+			} else {
+				console.log('prev_trait:', prev_trait)
+				console.log('curr_trait:', curr_trait)
+				console.log('losing :(')
 			}
+
 			// Populate select options for a selected rsID
-			// console.log(prev_rsid)
 			$(rsids).each(function() {
 				var j_data = JSON.stringify(this);
 				$('#rsid-select').append($('<option>').attr({"data-value":j_data, "trait": this.trait, "rsid": this.rsid}).text(this.rsid));
@@ -162,11 +161,14 @@ function traitSearch(obj) { // NEED TO RE-WRITE THIS FUNCTION TO INCREASE MODULA
 			if (!rsid_list.includes(prev_rsid)) {
 				displayPie(rsids[0]);
 				prev_rsid = rsids[0].rsid;
-				console.log('new prev_rsid', prev_rsid);
+				prev_r_obj = rsids[0];
 				$('#rsid_search').val(rsids[0]['rsid']);
-			} else {
-				console.log('Should not change', prev_rsid)
 			}
+			// else { # Might need this else statement in the future for reordering of dropdown selection
+			// 	console.log(rsids.filter(function (x) {return x.rsid === 'rs1000940'}).indexOf())
+			// 	console.log(rsids[0])
+			// }
+
 			$('#trait_search').val(rsids[0]['trait']);
 			// $('#trait-select').prop('disabled', true); // Disabling drop-down; Currently unused
 			// $('#rsid-select').prop('disabled', false);
@@ -182,7 +184,6 @@ function traitScores(name) {
 		type: 'get',
 		dataType: 'json',
 		success: function(response) {
-			// console.log(response['data']);
 			var scores = response['data']; //NEED TO HANDLE CASES WHERE PRS SCORES ARE MISSING
 			var cho_scores = scores[0]['cho'].split(";");
 			var clm_scores = scores[0]['clm'].split(";");
@@ -217,18 +218,18 @@ $(document).ready(function() {
 		remote: {
 			url: '/traitAutocomplete/?q=%QUERY%',
 			wildcard: 'QUERY%'
-		}
+		},
+		prefect: '/traitAutocomplete'
 	});
 	// console.log(bloodhound);
 	$('#trait_search').typeahead({
-		limit: 5,
+		limit: 15,
 		hint: true,
 		highlight: true
 	},{
 		name: 'traits',
 		source: bloodhound,
 		display: function(data) {
-			//console.log(data.trait);
 			return data.trait;
 		}
 	});
@@ -240,7 +241,6 @@ $(document).ready(function() {
 		$('#trait-select').append($('<option>').text('Select trait'));
 		$('#rsid-select').formSelect();
 		$('#trait-select').formSelect();
-		prev_trait = input.trait;
 		traitSearch(input.trait);
 	});
 });
@@ -264,7 +264,6 @@ $(document).ready(function() {
 		name: 'rsids',
 		source: bloodhound,
 		display: function(data) {
-			// console.log(data.rsid);
 			return data.rsid;
 		}
 	});
@@ -276,7 +275,6 @@ $(document).ready(function() {
 		$('#rsid-select').append($('<option>').text('Select rsID'));
 		$('#rsid-select').formSelect();
 		$('#trait-select').formSelect();
-		prev_rsid = input.rsid;
 		rsidSearch(input.rsid);
 	});
 });
@@ -293,7 +291,6 @@ $(document).ready(function(){
 		$('#rsid-select').formSelect();
 		$('#trait-select').formSelect();
 		$('#rsid_search').val(ex_rsid);
-		// prev_rsid = ex_rsid; 
 		rsidSearch(ex_rsid);
 	});
 });
@@ -309,8 +306,7 @@ $(document).ready(function(){
 		$('#trait-select').append($('<option>').text('Select trait'));
 		$('#rsid-select').formSelect();
 		$('#trait-select').formSelect();
-		$('#trait_search').val('Obesity');
-		// prev_trait = ex_trait
+		$('#trait_search').val(ex_trait);
 		traitSearch(ex_trait);
 	});
 });

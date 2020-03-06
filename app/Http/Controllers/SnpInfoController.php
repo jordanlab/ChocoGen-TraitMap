@@ -23,14 +23,14 @@ class SnpInfoController extends Controller
         return view('test');
     }
     public function rsidAutocomplete(Request $request) {
-        $results =  SnpInfo::where('rsid', 'LIKE', '%'.$request->q.'%')->get();
+        $results =  SnpInfo::where('rsid', 'LIKE', '%'.$request->q.'%')->addSelect('rsid')->distinct()->get();
         return $results;
 
         // Attempted chunk to limit the # rows returned.
         // Couldn't resolve 500 error. Will try later.
     }
     public function traitAutocomplete(Request $request) {
-        $results =  SnpInfo::where('trait', 'LIKE', $request->q.'%')->get();
+        $results =  SnpInfo::where('trait', 'LIKE', $request->q.'%')->addSelect('trait')->distinct()->get();
         return $results;
 
         // Attempted chunk to limit the # rows returned.

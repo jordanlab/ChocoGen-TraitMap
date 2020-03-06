@@ -88,7 +88,7 @@ function displayPie(d) {
 				.attr("class", "tip-content")
 				.attr("y", -radius-45)
 				.text(function(e) {
-					return "f(EA): "+(parseInt(e.data[1])/(parseInt(e.data[0])+parseInt(e.data[1]))).toFixed(2)
+					return "EAF: "+(parseInt(e.data[1])/(parseInt(e.data[0])+parseInt(e.data[1]))).toFixed(2)
 				})
 				.style("fill", "white")
 				.style("font-size", "33px")
